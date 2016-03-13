@@ -69,13 +69,13 @@ class News(models.Model):
         ordering = ('-added',)
 
     def __str__(self):
-        arr = self.body.split()
-        n = int(len(arr)/2)
-        if n> 100:
-            n =100
+        words = self.body.split()
+        countWords = int(len(words)/2)
+        if countWords > 100:
+            countWords = 100
         st = ''
-        for i in range(n):
-            st += arr[i]
+        for i in range(countWords):
+            st += words[i]
             st +=' '
         return st +'...'
 
@@ -97,13 +97,13 @@ class Actor(models.Model):
         verbose_name_plural = 'actors'
 
     def __str__(self):
-        arr = self.description.split()
-        n = int(len(arr)/2)
-        if n> 100:
-            n =100
+        words = self.description.split()
+        countWords = int(len(words)/2)
+        if countWords > 100:
+            countWords = 100
         st = ''
-        for i in range(n):
-            st += arr[i]
+        for i in range(countWords):
+            st += words[i]
             st +=' '
         return st +'...'
 
