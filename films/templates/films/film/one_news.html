@@ -1,0 +1,14 @@
+{% extends "films/base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="news_page">
+    <div class="title">
+      <h3> {{ one_news.title }}</h3>
+    </div>
+    <div class="news_body">
+      <p> {{ one_news.body|linebreaks }}</p>
+    </div>
+    <p>published {{ one_news.added }}</p>
+  </div>
+{% endblock %}

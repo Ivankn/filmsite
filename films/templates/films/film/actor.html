@@ -1,0 +1,22 @@
+{% extends "films/base.html" %}
+{% load static %}
+
+{% block content %}
+  <table>
+    <tr>
+      <td>
+        <img style="width:364px; height:536px;" src="{% if actor.photo %}{{ actor.photo.url }}{% else %}
+        {% static "img/no_image.png" %}{% endif %}">
+      </td>
+      <td>
+        <h1> {{ actor.name }}</h1>
+        <p>Film: {{ actor.film }}</p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <p> {{ actor.description|linebreaks }}</p>
+      </td>
+    </tr>
+  </table>
+{% endblock %}

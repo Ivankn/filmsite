@@ -1,0 +1,54 @@
+{% extends "films/base.html" %}
+{% load static %}
+
+{% block title %}
+  {% if category %}{{ category.title }}{% else %}Films{% endif %}
+{% endblock %}
+
+{% block content %}
+  <div id="deta">
+    <img style="width:364px; height:536px;" src="{% if film.image %}{{ film.image.url }}{% else %}
+      {% static "img/no_image.png" %}{% endif %}">
+    <h1>{{ film.name }}</h1>
+    <h3>Category: <a href="{{ film.category.get_absolute_url }}">{{ film.category }}</a></h3>
+    <h3>V glavnih rolyah: </h3>
+    {% for actor in actors %}
+      <a href="{{ actor.get_absolute_url }}">
+        <h3>{{ actor.name }}</h3>
+      </a>
+    {% endfor %}
+    <h3>Description:</h3>
+    <p>{{ film.description|linebreaks }}</p>
+    <p><b>Rating:</b> {{ film.rating }}</p>
+    <p><b>Year:</b> {{ film.year }}</p>
+    <p><b>Country:</b> {{ film.country }}</p>
+    <p><b>Age:</b> {{ film.age }}</p>
+    <p><b>Seasons:</b> {{ film.seasons }}</p>
+    <h3>Trailer:</h3>
+    <iframe width="420" height="315" src="{{ film.youtube }}"></iframe>
+    <div class="comen">
+      {% with comments.count as total_comments %}
+        <h2>
+          {{ total_comments }} comment{{ total_comments|pluralize }}
+        </h2>
+      {% endwith %}
+      {% for comment in comments %}
+        <p>
+          Comment {{ forloop.counter }} by {{ comment.name }}
+          {{ comment.created }}
+        </p>
+        {{ comment.body|linebreaks }}
+      {% endfor %}
+      {% if new_comment %}
+        <h2>Your comment has been added.</h2>
+      {% else %}
+        <h2>Add a new comment</h2>
+        <form action="." method="post">
+          {{ comment_form.as_p }}
+          {% csrf_token %}
+          <p><input type="submit" value="Add comment"></p>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

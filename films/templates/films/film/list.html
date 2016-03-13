@@ -1,0 +1,68 @@
+{% extends "films/base.html" %}
+{% load static %}
+
+{% block title %}
+  {% if category %}{{category.name }}{% else %}Films{% endif %}
+{% endblock %}
+
+{% block content %}
+  <div class="news_place">
+    <center><h1>News</h1></center>
+    <ul class="news">
+      {% for c in news %}
+        <div class="oneNews">
+          <li class="title">
+            {{ c.title }}
+          </li>
+          <li class="bod">
+            {{ c }}
+          </li>
+          <li>
+            <p><a href="{{ c.get_absolute_url }}">See more</a></p>
+          </li>
+        </div>
+      {% endfor %}
+    <center><h1> FILMS</h1></center>
+    </ul>
+  </div>
+  <table id='tab'>
+    <tr>
+      <th colspan=2>
+        <h1>{% if category %}{{ category.name }}{% else %}All{% endif %}</h1>
+      </th>
+      <th rowspan=5 valign="top" style="background-color:#F8F8F8; width:250px;">
+        <h1 style="color:#707070;">Categories</h1>
+        <ul>
+          <li class="categor">
+            <a href="{% url "films:film_list" %}">All</a>
+          </li>
+          {% for cat in categories %}
+            <li class="categor">
+              <a href="{{ cat.get_absolute_url}}">{{ cat.name }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </th>
+      {% for film in films %}
+        <tr>
+          <th>
+            <a href="{{ film.get_absolute_url }}">
+              <img src="{% if film.image %}{{ film.image.url }}{% else %}
+              {% static "img/no_image.png" %}{% endif %}">
+            </a>
+          </th>
+          <th>
+            <a href="{{ film.get_absolute_url }}">{{ film.name }}</a><br>
+            <p>Rating: {{ film.rating }}</p>
+            <p>Created in {{ film.year }} year</p>
+            <p>was made in {{ film.country }}</p>
+            <p>seasons: {{ film.seasons }}</p>
+          </th>
+        </tr>
+      {% endfor %}
+    </tr>
+  </table>
+  <center><div class="pag">
+    {% include "pagination.html" with page=films %}
+  </div></center>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "films/base.html" %}
+{% load static %}
+
+{% block content %}
+  {% for actor in posts %}
+    <div class="acto">
+      <table>
+        <tr>
+          <td>
+            <a href="{{ actor.get_absolute_url }}">
+              <img style="width:182px; height:268px;" src="{% if actor.photo %}{{ actor.photo.url }}{% else %}
+              {% static "img/no_image.png" %}{% endif %}">
+            </a>
+          </td>
+          <td>
+            <h3>Info</h3>
+            <p>{{ actor|linebreaks }}</p>
+          </td>
+        </tr>
+        <tr>
+          <td colspan=2>
+            <a href="{{ actor.get_absolute_url }}">
+              <center><p style="background-color:#FFFFCC; border: 2px solid #FF0066; font-size:20px"> {{ actor.name }}</p></center>
+            </a>
+          </td>
+        </tr>
+      </table>
+    </div>
+  {% endfor %}
+  <center><div class="pag">
+    {% include "pagination.html" with page=posts %}
+  </div></center>
+{% endblock %}
