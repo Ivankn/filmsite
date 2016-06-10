@@ -1,0 +1,15 @@
+{% extends "films/base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+  <h1>Dashboard</h1>
+  <p>Welcome to your dashboard.<a href="/">HOME</a>. You can <a href="{% url "edit" %}">edit
+  your profile</a> or <a href="{% url "password_change" %}">change your
+  password</a>.</p>
+  {% if request.user.is_authenticated %}
+    <h4><a href="{% url "logout" %}">log-out</a></h4>
+  {% endif %}
+  <h3> {{ request.user.first_name }} </h3>
+  <h3> {{ request.user.last_name }} </h3>
+  {% include 'account/photo.html' %}
+
+{% endblock %}

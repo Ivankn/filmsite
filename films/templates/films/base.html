@@ -15,12 +15,20 @@
           <li><a href="/" class="logo">films</a></li>
           <li><a href='/news/'>Show all news</a></li>
           <li><a href='/actors/'>actors</a></li>
+          <li style="color:black;">______________________________________________</li>
+          <li><a href='/account/'>account</a></li>
+          {% if request.user.is_authenticated %}
+            <li><a>Hello {{ request.user.first_name }}</a></li>
+          {% endif %}
+          <img style="width:10px; height:20px;" src="{{ request.user.photo }}">
         </ul>
       </div>
       <div id="content">
         {% block content %}
         {% endblock %}
       </div>
+    </div>
+    <div style="height: 500px;">
     </div>
   </div>
 </body>

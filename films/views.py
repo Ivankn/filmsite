@@ -18,6 +18,7 @@ def film_detail(request, id, slug):
         if comment_form.is_valid():
             new_comment = comment_form.save(commit=False)
             new_comment.film = film
+            new_comment.name = request.user.first_name
             new_comment.save()
     else:
         comment_form = CommentForm()

@@ -85,7 +85,7 @@ class News(models.Model):
 
 class Actor(models.Model):
     name = models.CharField(max_length=20, db_index=True)
-    film = models.ForeignKey(Film, blank=True)
+    film = models.ManyToManyField(Film)
     slug = models.SlugField(max_length=20, db_index=True, unique=True)
     filmSlug = models.CharField(max_length=50)
     photo = models.ImageField(upload_to='actors', blank=True)
